@@ -1,0 +1,82 @@
+{
+  "id": "bro-split",
+  "name": "Bro Split",
+  "description": "5-day split dedicating each day to one muscle group.",
+  "days": [
+    {
+      "day": "Monday",
+      "isRest": false,
+      "splitName": "Chest",
+      "exercises": [
+        { "name": "Flat Bench Press", "sets": 4, "reps": 8 },
+        { "name": "Incline Bench Press", "sets": 4, "reps": 10 },
+        { "name": "Decline Bench Press", "sets": 3, "reps": 10 },
+        { "name": "Cable Fly", "sets": 3, "reps": 12 },
+        { "name": "Dumbbell Pullover", "sets": 3, "reps": 12 }
+      ]
+    },
+    {
+      "day": "Tuesday",
+      "isRest": false,
+      "splitName": "Back",
+      "exercises": [
+        { "name": "Deadlift", "sets": 4, "reps": 6 },
+        { "name": "Barbell Row", "sets": 4, "reps": 8 },
+        { "name": "Pull-Ups", "sets": 4, "reps": 8 },
+        { "name": "Lat Pulldown", "sets": 3, "reps": 10 },
+        { "name": "Seated Cable Row", "sets": 3, "reps": 12 }
+      ]
+    },
+    {
+      "day": "Wednesday",
+      "isRest": false,
+      "splitName": "Shoulders",
+      "exercises": [
+        { "name": "Overhead Press", "sets": 4, "reps": 8 },
+        { "name": "Dumbbell Shoulder Press", "sets": 3, "reps": 10 },
+        { "name": "Lateral Raises", "sets": 4, "reps": 15 },
+        { "name": "Front Raises", "sets": 3, "reps": 12 },
+        { "name": "Rear Delt Fly", "sets": 3, "reps": 15 },
+        { "name": "Shrugs", "sets": 3, "reps": 12 }
+      ]
+    },
+    {
+      "day": "Thursday",
+      "isRest": false,
+      "splitName": "Arms",
+      "exercises": [
+        { "name": "Barbell Curl", "sets": 4, "reps": 10 },
+        { "name": "Hammer Curl", "sets": 3, "reps": 12 },
+        { "name": "Preacher Curl", "sets": 3, "reps": 12 },
+        { "name": "Skull Crushers", "sets": 4, "reps": 10 },
+        { "name": "Tricep Pushdown", "sets": 3, "reps": 12 },
+        { "name": "Overhead Tricep Extension", "sets": 3, "reps": 12 }
+      ]
+    },
+    {
+      "day": "Friday",
+      "isRest": false,
+      "splitName": "Legs",
+      "exercises": [
+        { "name": "Squat", "sets": 4, "reps": 8 },
+        { "name": "Romanian Deadlift", "sets": 4, "reps": 10 },
+        { "name": "Leg Press", "sets": 3, "reps": 12 },
+        { "name": "Leg Curl", "sets": 3, "reps": 12 },
+        { "name": "Leg Extension", "sets": 3, "reps": 15 },
+        { "name": "Calf Raises", "sets": 4, "reps": 15 }
+      ]
+    },
+    {
+      "day": "Saturday",
+      "isRest": true,
+      "splitName": "",
+      "exercises": []
+    },
+    {
+      "day": "Sunday",
+      "isRest": true,
+      "splitName": "",
+      "exercises": []
+    }
+  ]
+}

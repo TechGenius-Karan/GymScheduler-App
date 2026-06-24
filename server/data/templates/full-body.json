@@ -1,0 +1,67 @@
+{
+  "id": "full-body",
+  "name": "Full Body",
+  "description": "3-day split training the whole body each session.",
+  "days": [
+    {
+      "day": "Monday",
+      "isRest": false,
+      "splitName": "Full Body",
+      "exercises": [
+        { "name": "Squat", "sets": 4, "reps": 6 },
+        { "name": "Bench Press", "sets": 4, "reps": 8 },
+        { "name": "Barbell Row", "sets": 3, "reps": 8 },
+        { "name": "Overhead Press", "sets": 3, "reps": 10 },
+        { "name": "Plank", "sets": 3, "reps": 30 }
+      ]
+    },
+    {
+      "day": "Tuesday",
+      "isRest": true,
+      "splitName": "",
+      "exercises": []
+    },
+    {
+      "day": "Wednesday",
+      "isRest": false,
+      "splitName": "Full Body",
+      "exercises": [
+        { "name": "Deadlift", "sets": 4, "reps": 5 },
+        { "name": "Incline Dumbbell Press", "sets": 4, "reps": 10 },
+        { "name": "Pull-Ups", "sets": 3, "reps": 8 },
+        { "name": "Dumbbell Shoulder Press", "sets": 3, "reps": 10 },
+        { "name": "Ab Wheel Rollout", "sets": 3, "reps": 10 }
+      ]
+    },
+    {
+      "day": "Thursday",
+      "isRest": true,
+      "splitName": "",
+      "exercises": []
+    },
+    {
+      "day": "Friday",
+      "isRest": false,
+      "splitName": "Full Body",
+      "exercises": [
+        { "name": "Front Squat", "sets": 4, "reps": 6 },
+        { "name": "Dumbbell Bench Press", "sets": 4, "reps": 10 },
+        { "name": "Seated Cable Row", "sets": 3, "reps": 10 },
+        { "name": "Lateral Raises", "sets": 3, "reps": 15 },
+        { "name": "Calf Raises", "sets": 4, "reps": 15 }
+      ]
+    },
+    {
+      "day": "Saturday",
+      "isRest": true,
+      "splitName": "",
+      "exercises": []
+    },
+    {
+      "day": "Sunday",
+      "isRest": true,
+      "splitName": "",
+      "exercises": []
+    }
+  ]
+}

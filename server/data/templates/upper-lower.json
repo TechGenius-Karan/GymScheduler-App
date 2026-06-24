@@ -1,0 +1,75 @@
+{
+  "id": "upper-lower",
+  "name": "Upper / Lower",
+  "description": "4-day split alternating upper and lower body.",
+  "days": [
+    {
+      "day": "Monday",
+      "isRest": false,
+      "splitName": "Upper",
+      "exercises": [
+        { "name": "Bench Press", "sets": 4, "reps": 8 },
+        { "name": "Barbell Row", "sets": 4, "reps": 8 },
+        { "name": "Overhead Press", "sets": 3, "reps": 10 },
+        { "name": "Pull-Ups", "sets": 3, "reps": 8 },
+        { "name": "Barbell Curl", "sets": 2, "reps": 12 },
+        { "name": "Tricep Pushdown", "sets": 2, "reps": 12 }
+      ]
+    },
+    {
+      "day": "Tuesday",
+      "isRest": false,
+      "splitName": "Lower",
+      "exercises": [
+        { "name": "Squat", "sets": 4, "reps": 8 },
+        { "name": "Romanian Deadlift", "sets": 3, "reps": 10 },
+        { "name": "Leg Press", "sets": 3, "reps": 12 },
+        { "name": "Leg Curl", "sets": 3, "reps": 12 },
+        { "name": "Calf Raises", "sets": 4, "reps": 15 }
+      ]
+    },
+    {
+      "day": "Wednesday",
+      "isRest": true,
+      "splitName": "",
+      "exercises": []
+    },
+    {
+      "day": "Thursday",
+      "isRest": false,
+      "splitName": "Upper",
+      "exercises": [
+        { "name": "Incline Bench Press", "sets": 4, "reps": 8 },
+        { "name": "Seated Cable Row", "sets": 4, "reps": 8 },
+        { "name": "Dumbbell Shoulder Press", "sets": 3, "reps": 10 },
+        { "name": "Lat Pulldown", "sets": 3, "reps": 10 },
+        { "name": "Hammer Curl", "sets": 2, "reps": 12 },
+        { "name": "Skull Crushers", "sets": 2, "reps": 12 }
+      ]
+    },
+    {
+      "day": "Friday",
+      "isRest": false,
+      "splitName": "Lower",
+      "exercises": [
+        { "name": "Deadlift", "sets": 4, "reps": 6 },
+        { "name": "Bulgarian Split Squat", "sets": 3, "reps": 10 },
+        { "name": "Hack Squat", "sets": 3, "reps": 12 },
+        { "name": "Leg Extension", "sets": 3, "reps": 15 },
+        { "name": "Seated Calf Raises", "sets": 4, "reps": 15 }
+      ]
+    },
+    {
+      "day": "Saturday",
+      "isRest": true,
+      "splitName": "",
+      "exercises": []
+    },
+    {
+      "day": "Sunday",
+      "isRest": true,
+      "splitName": "",
+      "exercises": []
+    }
+  ]
+}
