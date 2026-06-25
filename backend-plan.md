@@ -129,7 +129,7 @@ Existing schedule documents use inline `name` on exercises. Leave them as-is unt
 
 ## Phase 4 — Gym Tracker
 
-**Status: [ ] Not started**
+**Status: [x] Done**
 
 ### New model (`server/models/GymTracker.js`)
 

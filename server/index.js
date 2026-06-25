@@ -17,6 +17,7 @@ app.use('/api/schedules', require('./routes/schedule'))
 app.use('/api/templates', require('./routes/templates'))
 app.use('/api/user', require('./routes/trainer'))
 app.use('/api/exercises', require('./routes/exercises'))
+app.use('/api/tracker', require('./routes/tracker'))
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
