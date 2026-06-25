@@ -170,7 +170,7 @@ notes           String  optional
 
 ## Phase 5 — Trainer Slots
 
-**Status: [ ] Not started**
+**Status: [x] Done**
 
 ### New model (`server/models/TrainerSlot.js`)
 
