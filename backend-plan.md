@@ -84,7 +84,7 @@ createdAt / updatedAt     auto (timestamps: true)
 
 ## Phase 3 — Schedules Rework
 
-**Status: [ ] Not started**
+**Status: [x] Done**
 
 ### Model changes (`server/models/Schedule.js`)
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { v4: uuidv4 } = require('uuid')
+const { randomUUID } = require('crypto')
 const { exerciseSchema } = require('./Exercise')
 
 const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -12,7 +12,10 @@ const daySchema = new mongoose.Schema({
 })
 
 const scheduleSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  programName: { type: String, required: true },
+  goal: { type: String },
+  isActive: { type: Boolean, default: false },
   days: { type: [daySchema], default: [] },
   updatedAt: { type: Date, default: Date.now },
 })
@@ -22,24 +25,11 @@ class Schedule {
     return this.days.find(d => d.day === dayName) ?? null
   }
 
-  applyTemplate(templateDays) {
-    this.days = templateDays.map(td => ({
-      day: td.day,
-      isRest: td.isRest,
-      splitName: td.splitName,
-      exercises: (td.exercises || []).map(ex => ({
-        id: uuidv4(),
-        name: ex.name,
-        sets: ex.sets,
-        reps: ex.reps,
-      })),
-    }))
-    this.updatedAt = new Date()
-  }
-
-  static buildBlank(userId) {
+  static buildBlank(userId, programName, goal) {
     return new ScheduleModel({
       userId,
+      programName,
+      goal,
       days: DAYS_OF_WEEK.map(day => ({
         day,
         isRest: false,
@@ -49,15 +39,18 @@ class Schedule {
     })
   }
 
-  static fromJSON(userId, days) {
+  static fromJSON(userId, programName, goal, days) {
     return new ScheduleModel({
       userId,
+      programName,
+      goal,
       days: days.map(d => ({
         day: d.day,
         isRest: d.isRest ?? false,
         splitName: d.splitName ?? '',
         exercises: (d.exercises || []).map(ex => ({
-          id: ex.id || uuidv4(),
+          id: ex.id || randomUUID(),
+          exerciseId: ex.exerciseId,
           name: ex.name,
           sets: ex.sets,
           reps: ex.reps,
