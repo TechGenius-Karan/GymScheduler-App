@@ -21,7 +21,7 @@
 
 ## Phase 1 — User Model Update
 
-**Status: [ ] Not started**
+**Status: [x] Done**
 
 ### Model changes (`server/models/User.js`)
 

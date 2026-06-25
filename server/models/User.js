@@ -6,6 +6,16 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   picture: { type: String, default: '' },
   firstLogin: { type: Boolean, default: true },
+  isTrainer: { type: Boolean, default: false },
+  trainerProfile: {
+    type: {
+      bio: { type: String },
+      certifications: { type: String },
+      gymName: { type: String },
+      location: { type: String },
+    },
+    default: null,
+  },
   createdAt: { type: Date, default: Date.now },
 })
 
@@ -35,6 +45,8 @@ class User {
       email: this.email,
       picture: this.picture,
       isNew: this.firstLogin,
+      isTrainer: this.isTrainer,
+      trainerProfile: this.trainerProfile ?? null,
     }
   }
 }
