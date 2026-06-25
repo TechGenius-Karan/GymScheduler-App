@@ -249,7 +249,7 @@ createdAt / updatedAt         auto
 
 ## Phase 7 — Reviews
 
-**Status: [ ] Not started**
+**Status: [x] Done**
 
 ### New model (`server/models/Review.js`)
 

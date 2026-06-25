@@ -13,6 +13,8 @@ const userSchema = new mongoose.Schema({
       certifications: { type: String },
       gymName: { type: String },
       location: { type: String },
+      averageRating: { type: Number, default: null },
+      reviewCount: { type: Number, default: 0 },
     },
     default: null,
   },
