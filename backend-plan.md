@@ -54,7 +54,7 @@ trainerProfile   Object     default null
 
 ## Phase 2 — Exercise Master
 
-**Status: [ ] Not started**
+**Status: [x] Done**
 
 ### New model (`server/models/ExerciseMaster.js`)
 
