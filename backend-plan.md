@@ -206,7 +206,7 @@ createdAt / updatedAt     auto
 
 ## Phase 6 — Bookings (Dual-Approval)
 
-**Status: [ ] Not started**
+**Status: [x] Done**
 
 ### New model (`server/models/TrainerSchedule.js`)
 
