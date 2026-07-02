@@ -81,6 +81,11 @@ client/src/
 
 **Status: [ ] Not started**
 
+### Routing: Schedule page is the home view
+- `SchedulePage.jsx` is the default post-login destination — route it to `/` or `/schedule`
+- Both trainees and trainers land here first after login
+- The Navbar should treat Schedule as the home/logo link, not a separate nav item — it is the default view, not a nav destination
+
 ### What changed on the backend
 - Route: `/api/schedule` → `/api/schedules`
 - Response: single object → array of program objects
@@ -109,6 +114,8 @@ deleteSchedule(id)         DELETE /api/schedules/:id
 - "New Program" button → opens `NewProgramModal` (already exists — wire it up)
 - "Activate" and "Delete" actions per program
 - `NewProgramModal` fields: **Program Name** (required), **Goal** (optional — Cut / Bulk / Strength / Custom)
+
+> **Note:** Do not add `isTemplate` to any schedule document. Templates are server-side static JSON only. `NewProgramModal` must not send or store an `isTemplate` field, and `ScheduleContext.jsx` must not read, set, or pass it.
 
 ### Rules
 - If user has zero programs → show SplitPicker (same as before)
@@ -252,7 +259,6 @@ client/src/api/slotsApi.js
 client/src/api/bookingsApi.js
   getBookings()                GET /api/bookings
   createBooking(data)          POST /api/bookings
-  confirmBooking(id)           PATCH /api/bookings/:id/confirm
   cancelBooking(id, reason)    PATCH /api/bookings/:id/cancel
 ```
 
@@ -278,15 +284,14 @@ client/src/api/bookingsApi.js
 ### New component: `BookingModal.jsx`
 - Shows slot details (date, time, gym, location)
 - Notes field (goals, injuries, questions)
-- "Send Booking Request" → calls `createBooking()`
-- Shows pending status after submission
+- "Book This Slot" → calls `createBooking()` → booking is immediately confirmed (no trainer approval step)
+- Shows confirmed status after submission
 
 ### New page: `MySessionsPage.jsx`
 - Route: `/sessions`
 - Shows all bookings for the current user (trainer or trainee)
-- Status badges: pending / confirmed / completed / cancelled
-- "Confirm" button for pending approvals
-- "Cancel" button for active bookings (with reason input)
+- Status badges: confirmed / completed / cancelled (no pending — booking is confirmed immediately on creation)
+- "Cancel" button for active bookings (with reason input) — either side can cancel
 
 ### Navbar update
 - Add "Find Trainers" and "Sessions" to trainee nav
@@ -304,6 +309,7 @@ When `isTrainer: true`, show a distinct trainer nav (or a mode switcher):
 |---|---|
 | My Sessions | `/trainer/sessions` — calendar of bookings |
 | Availability | `/trainer/availability` — manage slots |
+| My Trainees | `/trainer/trainees` — list of past trainees + read-only tracker view |
 | Profile | `/profile` — edit trainer profile (shared with Phase D) |
 
 ### New page: `TrainerAvailabilityPage.jsx`
@@ -327,11 +333,39 @@ When `isTrainer: true`, show a distinct trainer nav (or a mode switcher):
 - Fields: date, startTime, endTime, gymName, location, recurrenceRule (label only)
 - On recurrence select: expands to show date range picker; client generates the individual slot array
 
+### New page: `TrainerTraineesPage.jsx`
+- Route: `/trainer/trainees`
+- Only accessible when `isTrainer: true`
+- Fetches trainees who have had at least one `completed` booking with this trainer
+  → New backend route needed: `GET /api/trainer/trainees` — returns list of trainee users
+- Shows trainee cards: name, avatar, last session date
+- Clicking a trainee → expands or navigates to a read-only view of their gym tracker logs
+  → Calls: `GET /api/tracker?userId=<traineeId>` (trainer-scoped, read-only)
+- No edit, delete, or message actions — view only
+
 ---
 
 ## Phase G — Reviews UI
 
 **Status: [ ] Not started**
+
+> ⚠️ Backend prerequisite: The `reviews` collection does not yet exist in the schema.
+> Before building this phase, add the following collection to the backend:
+>
+> ```
+> reviews {
+>   id              GUID          PK
+>   trainerId       FK → users    required
+>   traineeId       FK → users    required
+>   bookingId       FK → trainerSchedules   unique (one review per completed session)
+>   rating          Number        required, 1–5
+>   comment         String        optional
+>   createdAt       Date          auto
+> }
+> ```
+>
+> Also add: `averageRating` and `reviewCount` as computed fields on the trainerProfile
+> (either recalculated on each review submission or stored and updated incrementally).
 
 ### New file: `client/src/api/reviewsApi.js`
 ```
@@ -385,6 +419,10 @@ These are gaps identified while planning the frontend — not yet implemented on
 | `GET /api/users?isTrainer=true` | Find Trainers page | High |
 | `GET /auth/me` already returns `isTrainer` | AuthContext update | Already works |
 | `PATCH /api/bookings/:id/complete` | Mark session done (trainer action) | Medium |
+| `GET /api/trainer/trainees` | Trainer Trainees page | High |
+| `GET /api/tracker?userId=traineeId` | Read-only trainee log view (trainer-scoped) | High |
+| `POST /api/reviews` | Submit a review (trainee only, one per completed booking) | Phase G |
+| `GET /api/reviews/:trainerId` | Get all reviews for a trainer profile | Phase G |
 
 ---
 
