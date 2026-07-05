@@ -1,27 +1,38 @@
 import { useEffect, useState } from 'react'
 import { useSchedule } from '../context/ScheduleContext'
-import { getSchedule, saveSchedule } from '../api/scheduleApi'
+import { getActiveProgram, getPrograms } from '../api/programApi'
 import WelcomeBanner from '../components/WelcomeBanner'
 import SplitPicker from '../components/SplitPicker'
 import TemplateView from '../components/TemplateView'
 import WeeklyView from '../components/WeeklyView'
 import ScheduleActionBar from '../components/ScheduleActionBar'
+import EmptyScheduleState from '../components/EmptyScheduleState'
+import ProgramBar from '../components/ProgramBar'
 
 function ScheduleSkeleton() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {[...Array(7)].map((_, i) => (
         <div key={i} className="bg-gray-900 border border-gray-800 rounded-xl p-4 flex flex-col gap-3 animate-pulse">
+          {/* Header: day name + set rest button */}
           <div className="flex items-center justify-between">
-            <div className="h-3 w-16 bg-gray-800 rounded" />
-            <div className="h-5 w-14 bg-gray-800 rounded-full" />
+            <div className="h-5 w-20 bg-gray-800 rounded" />
+            <div className="h-6 w-16 bg-gray-800 rounded-full" />
           </div>
-          <div className="h-4 w-24 bg-gray-800 rounded" />
-          <div className="flex flex-col gap-2 mt-1">
+          {/* Split name */}
+          <div className="h-5 w-28 bg-gray-800 rounded" />
+          {/* Exercise rows */}
+          <div className="flex flex-col gap-2.5 mt-1">
             {[...Array(3)].map((_, j) => (
-              <div key={j} className="h-3 bg-gray-800 rounded w-full" />
+              <div key={j} className="flex items-center gap-2">
+                <div className="h-4 bg-gray-800 rounded flex-1" />
+                <div className="h-4 w-8 bg-gray-800 rounded" />
+                <div className="h-4 w-8 bg-gray-800 rounded" />
+              </div>
             ))}
           </div>
+          {/* Add exercise link */}
+          <div className="h-3 w-20 bg-gray-800 rounded" />
         </div>
       ))}
     </div>
@@ -29,17 +40,24 @@ function ScheduleSkeleton() {
 }
 
 export default function SchedulePage() {
-  const { activeView, setActiveView, setMyScheduleData, myScheduleData } = useSchedule()
+  const {
+    activeView, setActiveView, setMyScheduleData, myScheduleData,
+    setActiveProgramId, setSavedScheduleData, setPrograms, saveActiveProgram,
+  } = useSchedule()
   const [scheduleLoading, setScheduleLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState(null)
   const [saveSuccess, setSaveSuccess] = useState(false)
+  const [showSplitPicker, setShowSplitPicker] = useState(false)
 
   useEffect(() => {
-    getSchedule()
-      .then(schedule => {
-        if (schedule) {
-          setMyScheduleData(schedule)
+    Promise.all([getActiveProgram(), getPrograms()])
+      .then(([active, all]) => {
+        setPrograms(all)
+        if (active) {
+          setActiveProgramId(active._id)
+          setSavedScheduleData(active)
+          setMyScheduleData(active)
           setActiveView('mySchedule')
         } else {
           setActiveView('splitPicker')
@@ -55,8 +73,7 @@ export default function SchedulePage() {
     setSaveError(null)
     setSaveSuccess(false)
     try {
-      const saved = await saveSchedule(myScheduleData.days)
-      setMyScheduleData(saved)
+      await saveActiveProgram()
       setSaveSuccess(true)
       setTimeout(() => setSaveSuccess(false), 3000)
     } catch {
@@ -74,7 +91,11 @@ export default function SchedulePage() {
         <ScheduleSkeleton />
       ) : (
         <>
-          {activeView === 'splitPicker' && <SplitPicker />}
+          <ProgramBar />
+          {activeView === 'splitPicker' && !myScheduleData && !showSplitPicker && (
+            <EmptyScheduleState onPickSplit={() => setShowSplitPicker(true)} />
+          )}
+          {activeView === 'splitPicker' && (myScheduleData || showSplitPicker) && <SplitPicker />}
           {activeView === 'template' && <TemplateView />}
           {activeView === 'mySchedule' && <WeeklyView />}
           <ScheduleActionBar onSave={handleSave} saving={saving} saveError={saveError} />

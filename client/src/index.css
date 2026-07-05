@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* prevent horizontal scroll / white overflow on mobile */
+html, body {
+  overflow-x: hidden;
+}
+
 /* hide number input spin buttons */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {

@@ -5,10 +5,11 @@ import AuthCallbackPage from './pages/AuthCallbackPage'
 import SchedulePage from './pages/SchedulePage'
 import ToolsPage from './pages/ToolsPage'
 import Navbar from './components/Navbar'
+import LoadingScreen from './components/LoadingScreen'
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth()
-  if (loading) return <div className="flex items-center justify-center min-h-screen text-gray-400">Loading...</div>
+  if (loading) return <LoadingScreen />
   if (!user) return <Navigate to="/login" replace />
   return children
 }

@@ -3,7 +3,7 @@ import { getAllTemplates } from '../api/templateApi'
 import { useSchedule } from '../context/ScheduleContext'
 
 export default function SplitPicker() {
-  const { selectTemplate, loadingTemplate, selectedTemplateId, startFresh } = useSchedule()
+  const { selectTemplate, loadingTemplate, selectedTemplateId, startFresh, myScheduleData, setActiveView } = useSchedule()
   const [templates, setTemplates] = useState([])
   const [loadingList, setLoadingList] = useState(true)
   const [error, setError] = useState(null)
@@ -31,6 +31,17 @@ export default function SplitPicker() {
 
   return (
     <div className="flex flex-col gap-6">
+      {myScheduleData && (
+        <button
+          onClick={() => setActiveView('mySchedule')}
+          className="flex items-center gap-1.5 text-indigo-400 hover:text-indigo-300 text-lg font-medium transition w-fit"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+          </svg>
+          Back
+        </button>
+      )}
       <div>
         <h3 className="text-lg font-semibold text-white mb-1">Choose a training split</h3>
         <p className="text-gray-400 text-sm">Pick a template to preview it, or start with a blank schedule.</p>
