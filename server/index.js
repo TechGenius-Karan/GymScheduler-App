@@ -14,6 +14,7 @@ app.use(passport.initialize())
 
 app.use('/auth', require('./routes/auth'))
 app.use('/api/schedules', require('./routes/schedule'))
+app.use('/api/programs', require('./routes/programs'))
 app.use('/api/templates', require('./routes/templates'))
 app.use('/api/user', require('./routes/trainer'))
 app.use('/api/exercises', require('./routes/exercises'))
