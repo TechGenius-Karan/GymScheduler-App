@@ -12,6 +12,8 @@ app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }))
 app.use(express.json())
 app.use(passport.initialize())
 
+app.get('/health', (req, res) => res.json({ status: 'ok' }))
+
 app.use('/auth', require('./routes/auth'))
 app.use('/api/schedules', require('./routes/schedule'))
 app.use('/api/programs', require('./routes/programs'))
