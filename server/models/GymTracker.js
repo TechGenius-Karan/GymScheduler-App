@@ -16,7 +16,7 @@ const gymTrackerSchema = new mongoose.Schema(
     id: { type: String, default: () => randomUUID() },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     date: { type: Date, required: true },
-    scheduleId: { type: mongoose.Schema.Types.ObjectId, ref: 'Schedule' },
+    scheduleId: { type: mongoose.Schema.Types.ObjectId, ref: 'Program' },
     dayCardId: { type: String },
     exercises: { type: [logEntrySchema], default: [] },
   },

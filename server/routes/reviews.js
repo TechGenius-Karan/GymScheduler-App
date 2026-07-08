@@ -10,7 +10,7 @@ router.post('/', authMiddleware, async (req, res) => {
   try {
     const { bookingId, rating, comment } = req.body
 
-    const booking = await TrainerSchedule.findById(bookingId)
+    const booking = await TrainerSchedule.findOne({ id: bookingId })
     if (!booking) return res.status(404).json({ error: 'Booking not found' })
     if (booking.status !== 'completed') {
       return res.status(400).json({ error: 'Can only review a completed booking' })
@@ -20,7 +20,7 @@ router.post('/', authMiddleware, async (req, res) => {
     }
 
     const review = await Review.create({
-      bookingId,
+      bookingId: booking._id,
       traineeId: booking.traineeId,
       trainerId: booking.trainerId,
       rating,

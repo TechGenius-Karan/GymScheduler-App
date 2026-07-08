@@ -33,9 +33,13 @@ router.post('/', authMiddleware, async (req, res) => {
 router.patch('/:id', authMiddleware, async (req, res) => {
   try {
     const { name, description, muscleImpact } = req.body
+    const updates = {}
+    if (name !== undefined) updates.name = name
+    if (description !== undefined) updates.description = description
+    if (muscleImpact !== undefined) updates.muscleImpact = muscleImpact
     const exercise = await ExerciseMaster.findOneAndUpdate(
       { id: req.params.id, createdBy: req.user.id },
-      { name, description, muscleImpact },
+      { $set: updates },
       { new: true, runValidators: true }
     )
     if (!exercise) return res.status(404).json({ error: 'Exercise not found' })

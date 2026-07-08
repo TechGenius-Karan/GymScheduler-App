@@ -62,7 +62,7 @@ router.post('/', authMiddleware, async (req, res) => {
 // PATCH /api/bookings/:id/confirm — approve the booking (sets caller's side to true)
 router.patch('/:id/confirm', authMiddleware, async (req, res) => {
   try {
-    const booking = await TrainerSchedule.findById(req.params.id)
+    const booking = await TrainerSchedule.findOne({ id: req.params.id })
     if (!booking) return res.status(404).json({ error: 'Booking not found' })
     if (booking.status === 'cancelled' || booking.status === 'completed') {
       return res.status(400).json({ error: `Cannot confirm a ${booking.status} booking` })
@@ -92,7 +92,7 @@ router.patch('/:id/confirm', authMiddleware, async (req, res) => {
 // PATCH /api/bookings/:id/cancel — cancel a booking at any stage
 router.patch('/:id/cancel', authMiddleware, async (req, res) => {
   try {
-    const booking = await TrainerSchedule.findById(req.params.id)
+    const booking = await TrainerSchedule.findOne({ id: req.params.id })
     if (!booking) return res.status(404).json({ error: 'Booking not found' })
     if (booking.status === 'cancelled') {
       return res.status(400).json({ error: 'Booking is already cancelled' })
