@@ -58,6 +58,19 @@ Context also holds the four schedule mutation helpers (`updateDay`, `addExercise
 ### MongoDB Connection
 The `mongodb+srv://` SRV format can fail on some Windows DNS configurations. If it does, use the standard `mongodb://` direct connection string from Atlas (Connect → Drivers → "connecting behind a firewall" link). See `server/.env.example`.
 
+## Deployment
+
+| Layer | Local | Production |
+|---|---|---|
+| Frontend | `http://localhost:5173` (Vite) | Netlify |
+| Backend | `http://localhost:5000` (Node/Express) | Render (`gymscheduler-app.onrender.com`) |
+| Database | MongoDB Atlas (shared with production) | MongoDB Atlas |
+
+- Frontend stack: React + Vite
+- Backend stack: Node.js + Express + Mongoose
+- The `mongodb+srv://` SRV format fails on Windows DNS locally — use the direct `mongodb://` connection string in `server/.env`. Render (Linux) handles SRV fine so either format works there.
+- `/health` endpoint on the server returns `{"status":"ok"}` — use it to verify Render is live.
+
 ## Environment Variables
 
 `server/.env` is required and never committed. Required keys:
